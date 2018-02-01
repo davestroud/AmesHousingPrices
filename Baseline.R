@@ -17,3 +17,8 @@ library(readr) # To read csv function
 
 train <- read_csv("train.csv")
 test <- read_csv("test.csv")
+
+# Combine the datasets
+df.combined <- rbind(within(train, rm('Id', 'SalePrice')), within(test, 
+                                                                  rm('Id')))
+dim(df.combined)
