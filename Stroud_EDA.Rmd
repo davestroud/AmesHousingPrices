@@ -271,7 +271,7 @@ log_prediction <- predict(fit_lm,newdata=test)
 actual_pred <- exp(log_prediction)-1
 hist(actual_pred)
 submit <- data.frame(Id=test$Id,SalePrice=actual_pred)
-write.csv(submit,file="2-10-17.csv",row.names=F)
+write.csv(submit,file="stroud.csv",row.names=F)
 
 ```
 
