@@ -29,8 +29,9 @@ ROOT.DIR <- ".."   #facilitates testing inside and outside of Rmarkdown notebook
 
 ```{r}
 # load the datasets
-train <- read_csv("train.csv")
-test <- read_csv("test.csv")
+# note ~ use read.csv to read into Rmd
+train <- read.csv("train.csv")
+test <- read.csv("test.csv")
 ```
 
 ```{r}
