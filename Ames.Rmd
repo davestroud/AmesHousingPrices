@@ -50,6 +50,15 @@ all_data <- rbind(select(train,MSSubClass:SaleCondition),
 ```
 
 
+```{r}
+df <- rbind(data.frame(version="log(price+1)",x=log(train$SalePrice + 1)),
+            data.frame(version="price",x=train$SalePrice))
+
+# plot histogram
+ggplot(data = df) +
+  facet_wrap(~version,ncol = 2,scales = "free_x") +
+  geom_histogram(aes(x=x))
+```
 
 
 
