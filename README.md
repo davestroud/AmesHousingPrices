@@ -11,4 +11,6 @@ The Ames Housing dataset was compiled by Dean De Cock for use in data science ed
 ### Files  
 Master.RMD ~ compilation of group members code  
 Phil_EDA.R ~ Phil's Exploratory Data Analysis  
-Stroud_EDA ~ David's Exploratory Data Analysis  
+Stroud_EDA.R ~ David's Exploratory Data Analysis  
+Playground..r ~ EDA Stroud is using to experiment
+ProjectEDAinR.R ~ lastest EDA from Phil
