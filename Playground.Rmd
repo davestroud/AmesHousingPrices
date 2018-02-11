@@ -24,12 +24,6 @@ summary(train)
 str(train)
 ```            
 
-```{r}
-# combine the datasets
-df.combined <- rbind(within(train, rm('Id','SalePrice')), within(test, rm('Id')))
-dim(df.combined)
-```
-
 
 ```{r}
 # Show the dimensions of the training data sample
@@ -63,6 +57,13 @@ Missing_Summary[Missing_Summary$Missing_Values > 0,]
 ```
  
  
+```{r}
+# Combine the train and test data for a quicker data prep
+test$SalePrice <- NA
+train$isTrain <- 1
+test$isTrain <- 0
+combined <- rbind(train,test)
+```
  
  
  
