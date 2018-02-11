@@ -1,0 +1,46 @@
+---
+title: "Playground"
+author: "David Stroud"
+date: "2/10/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2) # Data visualization
+library(readr) # CSV file I/O, e.g. the read_csv function
+library(dplyr)
+```
+
+```{r}
+# load the datasets
+# note ~ use read.csv to read into Rmd
+train <- read.csv("train.csv")
+test <- read.csv("test.csv")
+summary(train)
+str(train)
+```            
+
+```{r}
+# Show the dimensions of the training data sample
+dim(head(train))
+```
+
+```{r}
+# Show scatter plot ~ need to log transform due to skewness
+ggplot(train,aes(y=SalePrice,x=GrLivArea))+geom_point()
+```
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
