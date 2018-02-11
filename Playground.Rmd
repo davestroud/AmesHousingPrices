@@ -30,12 +30,24 @@ dim(head(train))
 ```
 
 ```{r}
-# Show scatter plot ~ need to log transform due to skewness
+# Show scatter plot ~ 
 ggplot(train,aes(y=SalePrice,x=GrLivArea))+geom_point()
 ```
 
+```{r}
+# Remove outliers. Data points where GrLivArea is about 4000
+train <- train[train$GrLivArea<=4000,]
+```
  
  
+```{r}
+# The majority of garages were built when the homes were built. Points
+# above the line show they were added later
+# Consider building a new feature that tells us whether or not a garage
+# was originally constructed with the house or when it was added.
+ggplot(train,aes(y=GarageYrBlt,x=YearBuilt))+geom_point()
+```
+
  
  
  
