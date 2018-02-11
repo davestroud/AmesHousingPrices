@@ -25,6 +25,13 @@ str(train)
 ```            
 
 ```{r}
+# combine the datasets
+df.combined <- rbind(within(train, rm('Id','SalePrice')), within(test, rm('Id')))
+dim(df.combined)
+```
+
+
+```{r}
 # Show the dimensions of the training data sample
 dim(head(train))
 ```
@@ -48,6 +55,12 @@ train <- train[train$GrLivArea<=4000,]
 ggplot(train,aes(y=GarageYrBlt,x=YearBuilt))+geom_point()
 ```
 
+```{r}
+# Find the number of missing values 
+Missing_indices <- sapply(train,function(x)sum(is.na(x)))
+Missing_Summary <- data.frame(index=names(train),Missing_Values=Missing_indices)
+Missing_Summary[Missing_Summary$Missing_Values > 0,]
+```
  
  
  
