@@ -20,11 +20,6 @@ library(moments)
 library(caret)
 library(corrplot)
 library(gbm)
-
-options(width=100)
-knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE)
-
-
 ```
 
 ```{r}
@@ -33,6 +28,7 @@ knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE)
 train <- read.csv("train.csv")
 test <- read.csv("test.csv")
 summary(train)
+str(train)
 ```
 
 ```{r}
@@ -256,6 +252,15 @@ mse <- sqrt(mean((prediction-validate$SalePrice)^2,na.rm=T))
 mse
 ```
 
+```{r}
+prediction <- exp(predict(fit_lm,newdata=test,type="response"))
+prediction[which(is.na(prediction))] <- mean(prediction,na.rm=T) 
+
+lm_pred <- prediction
+length(lm_pred)
+```
+
+
 
 ```{r}
 fit_lm <- lm(SalePrice~MSZoning+LotArea+Street+
@@ -266,14 +271,113 @@ fit_lm <- lm(SalePrice~MSZoning+LotArea+Street+
 ```
 
 
+
+
 ```{r}
-log_prediction <- predict(fit_lm,newdata=test)
+Missing_indices <- sapply(test,function(x)sum(is.na(x)))
+Missing_Summary <- data.frame(index = names(test),Missing_Values=Missing_indices)
+Missing_Summary[Missing_Summary$Missing_Values > 0,]
+```
+
+
+```{r}
+# Changing NAs to "None" or 0
+test$MSZoning1 <- as.character(test$MSZoning)
+test$MSZoning1[which(is.na(test$MSZoning))] <- "None"
+test$MSZoning <- as.factor(test$MSZoning1)
+test <- subset(test,select = -MSZoning1)
+
+test$Utilities1 <- as.character(test$Utilities)
+test$Utilities1[which(is.na(test$Utilities))] <- "None"
+test$Utilities <- as.factor(test$Utilities1)
+test <- subset(test,select = -Utilities1)
+
+test$Exterior1st1 <- as.character(test$Exterior1st)
+test$Exterior1st1[which(is.na(test$Exterior1st))] <- "None"
+test$Exterior1st <- as.factor(test$Exterior1st1)
+test <- subset(test,select = -Exterior1st1)
+
+test$Exterior2nd1 <- as.character(test$Exterior2nd)
+test$Exterior2nd1[which(is.na(test$Exterior2nd))] <- "None"
+test$Exterior2nd <- as.factor(test$Exterior2nd1)
+test <- subset(test,select = -Exterior2nd1)
+
+test$BsmtFinSF1[which(is.na(test$BsmtFinSF1))] <- 0
+test$BsmtFinSF2[which(is.na(test$BsmtFinSF2))] <- 0
+test$TotalBsmtSF[which(is.na(test$TotalBsmtSF))] <- 0
+test$BsmtUnfSF[which(is.na(test$BsmtUnfSF))] <- 0
+test$BsmtFullBath[which(is.na(test$BsmtFullBath))] <- 0
+test$BsmtHalfBath[which(is.na(test$BsmtHalfBath))] <- 0
+
+
+
+test$KitchenQual1 <- as.character(test$KitchenQual)
+test$KitchenQual1[which(is.na(test$KitchenQual))] <- "None"
+test$KitchenQual <- as.factor(test$KitchenQual1)
+test <- subset(test,select = -KitchenQual1)
+
+test$Functional1 <- as.character(test$Functional)
+test$Functional1[which(is.na(test$Functional))] <- "None"
+test$Functional <- as.factor(test$Functional1)
+test <- subset(test,select = -Functional1)
+
+test$GarageCars[which(is.na(test$GarageCars))] <- 0
+test$GarageArea[which(is.na(test$GarageArea))] <- 0
+
+test$SaleType1 <- as.character(test$SaleType)
+test$SaleType1[which(is.na(test$SaleType))] <- "None"
+test$SaleType <- as.factor(test$SaleType1)
+test <- subset(test,select = -SaleType1)
+```
+
+
+```{r}
+dummy <- dummyVars(" ~ .",data=train)
+train_trans <- data.frame(predict(dummy,newdata=train))
+dim(train_trans)
+
+```
+
+```{r}
+dummy_test <- dummyVars(" ~ .",data=test)
+test_trans <- data.frame(predict(dummy,newdata=test))
+dim(test_trans)
+```
+
+
+```{r}
+all_predictors <- subset(train,select = -c(Id,isTrain,SalePrice))
+var_classes <- sapply(all_predictors,function(x)class(x))
+num_classes <- var_classes[var_classes=="integer"]
+num_vars <- subset(train,select=names(num_classes))
+corrplot(cor(num_vars),method="number")
+```
+
+
+```{r}
+myTrainControl <- trainControl(method="repeatedcv",number=10,repeats = 4)
+fit.glmnet <- train(SalePrice~.-Id-isTrain,train,trControl = myTrainControl,
+                    method="glmnet",tuneGrid=expand.grid(.alpha = seq(0,1,by=0.05), 
+                                                         .lambda = seq(0, 0.08, by = 0.01)))
+```
+
+
+
+```{r}
+print(fit.glmnet)
+```
+
+
+```{r}
+varImp(fit.glmnet)
+```
+
+
+```{r}
+log_prediction <- predict(fit.glmnet,newdata=test)
 actual_pred <- exp(log_prediction)-1
 hist(actual_pred)
 submit <- data.frame(Id=test$Id,SalePrice=actual_pred)
 write.csv(submit,file="stroud.csv",row.names=F)
-
 ```
-
-
 
