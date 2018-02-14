@@ -1,6 +1,6 @@
 
-train <- read.csv("C:/Users/flip/Desktop/SMU/MSDS6371/group project/train.csv", stringsAsFactors=FALSE)
-test <- read.csv("C:/Users/flip/Desktop/SMU/MSDS6371/group project/test.csv", stringsAsFactors=FALSE)
+train <- read.csv("train.csv", stringsAsFactors=FALSE)
+test <- read.csv("test.csv", stringsAsFactors=FALSE)
 
 str(train)
 str(test)
@@ -408,7 +408,7 @@ names(house)
 datatable(head(house, n=20),options = list(scrollX = TRUE))
 
 
-write.csv(house, file="C:/Users/flip/Desktop/SMU/MSDS6372/house1.csv", row.names=F)
+write.csv(house, file="house1.csv", row.names=F)
 
 
 
