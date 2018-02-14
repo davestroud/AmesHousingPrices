@@ -252,14 +252,6 @@ mse <- sqrt(mean((prediction-validate$SalePrice)^2,na.rm=T))
 mse
 ```
 
-```{r}
-prediction <- exp(predict(fit_lm,newdata=test,type="response"))
-prediction[which(is.na(prediction))] <- mean(prediction,na.rm=T) 
-
-lm_pred <- prediction
-length(lm_pred)
-```
-
 
 
 ```{r}
