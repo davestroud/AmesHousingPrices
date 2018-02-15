@@ -2,11 +2,13 @@
 title: "Two"
 author: "David Stroud"
 date: "2/15/2018"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo =TRUE)
 ```
 
 ```{r}
@@ -24,8 +26,36 @@ library(gbm)
 
 ```{r}
 # load the datasets
-# note ~ use read.csv to read into Rmd
 train <- read.csv("train.csv")
 test <- read.csv("test.csv")
+summary(train)
+str(train)
 ```
+
+```{r}
+ggplot(train,aes(y=SalePrice,x=GrLivArea)) +
+  geom_point(
+  color="red",
+  fill="blue",
+  shape=21,
+  alpha=0.5,
+  size=2,
+  stroke=1
+)
+```
+
+When we compare SalePrice and GrLivArea, we see that there are four outliers. To prevent overfitting, we will will remove them from the training set.
+
+```{r}
+train <- train[train$GrLivArea<=4000,]
+```
+
+```{r}
+Missing_indices <- sapply(train,function(x)sum(is.na(x)))
+Missing_Summary <- data.frame(index = names(train),Missing_Values=Missing_indices)
+Missing_Summary[Missing_Summary$Missing_Values > 0,]
+```
+
+The chart above shows the amount of missing values in the training dataset. When we reference the data_description for the project, notice that NA can stand for something othen than Non Applicable. This is the case with respect to the basement as well as the Fireplace in the basement. We will make the changes to the respective data by substituing None for missing value instead of NA.
+
 
