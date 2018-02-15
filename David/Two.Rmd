@@ -59,3 +59,17 @@ Missing_Summary[Missing_Summary$Missing_Values > 0,]
 The chart above shows the amount of missing values in the training dataset. When we reference the data_description for the project, notice that NA can stand for something othen than Non Applicable. This is the case with respect to the basement as well as the Fireplace in the basement. We will make the changes to the respective data by substituing None for missing value instead of NA.
 
 
+```{r}
+# combine the test and train data
+test$SalePrice <- NA
+train$isTrain <- 1
+test$isTrain <- 0
+combined <- rbind(train,test)
+```
+
+The training and testing data have been combinded to make the data easier to manage. 
+
+
+
+
+
