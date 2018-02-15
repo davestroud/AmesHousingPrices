@@ -1,0 +1,31 @@
+---
+title: "Two"
+author: "David Stroud"
+date: "2/15/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# get the require R packages
+library(ggplot2) # Data visualization
+library(readr) # CSV file I/O, e.g. the read_csv function
+library(MASS)
+library(dplyr)
+library(lars)
+library(moments)
+library(caret)
+library(corrplot)
+library(gbm)
+```
+
+```{r}
+# load the datasets
+# note ~ use read.csv to read into Rmd
+train <- read.csv("train.csv")
+test <- read.csv("test.csv")
+```
+
