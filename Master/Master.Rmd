@@ -2,7 +2,10 @@
 title: "MSDS 6372 Project 1"
 author: "Manisha Pednekar, Mihir Parikh, Phillip Edwards, David Stroud"
 date: "2/10/2018"
-output: html_document
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -10,12 +13,17 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ### Introduction  
-The goal of this project it to build a series of regression models to predict defined outcomes. Our team conducted two analysis seperate analysis, each consisting of at least three competing models. 
+The goal of this project it to build a series of regression models to predict defined outcomes. Our team conducted two seperate analysis, each consisting of at least three competing models. 
+
+### Analysis One  
+
+### Analysis Two  
+
 
 ### Data Description  
 The dataset we chose for our project contains information from property sales that occurred in Ames, Iowa from 2006 to 2010 (Cock 2011)  
 
-Dean De Cock of Truman State University is the primary custodian of the housing data set. (Cock 2011) summarizes the data set as containing 2930 observations on 80 predictor variables (23 nominal, 23 ordinal, 14 discrete, and 20 continuous). These were used in the valuation of homes in Ames Iowa.  
+Dean De Cock of Truman State University is the primary custodian of the housing data set. (Cock 2011) The dataset contains 2930 observations on 80 predictor variables (23 nominal, 23 ordinal, 14 discrete, and 20 continuous). These were used in the valuation of homes in Ames Iowa.  
 
 ### Exploratory Analysis  
 
