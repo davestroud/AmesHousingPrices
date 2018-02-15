@@ -32,7 +32,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 > Comparing Competing Models  
 
+### Conclusion / Discussion  
 
+
+### Appendix  
 
 
 

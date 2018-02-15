@@ -373,3 +373,11 @@ submit <- data.frame(Id=test$Id,SalePrice=actual_pred)
 write.csv(submit,file="one.csv",row.names=F)
 ```
 
+```{r}
+write.csv(combined, file = "house_ds.csv", row.names = F)
+```
+
+```{r}
+names(combined)
+```
+
