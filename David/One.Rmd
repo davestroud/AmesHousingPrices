@@ -374,7 +374,7 @@ write.csv(submit,file="one.csv",row.names=F)
 ```
 
 ```{r}
-write.csv(combined, file = "house_ds.csv", row.names = F)
+write.csv(combined, file = "one.csv", row.names = F)
 ```
 
 ```{r}
