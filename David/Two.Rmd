@@ -205,6 +205,22 @@ for(x in names(skew)) {
 ```
 
 
+```{r}
+train <- combined[combined$isTrain==1,]
+table(train$MasVnrType)
+test <- combined[combined$isTrain==0,]
+smp_size <- floor(0.75 * nrow(train))
+
+# setting the seed to make the partition reproducible
+set.seed(123)
+train_ind <- sample(seq_len(nrow(train)), size=smp_size)
+
+train_new <- train[train_ind, ]
+validate <- train[-train_ind, ]
+train_new <- subset(train_new,select=-c(Id,isTrain))
+validate <- subset(validate,select=-c(Id,isTrain))
+nrow(train_new)
+```
 
 
 
