@@ -26,8 +26,8 @@ library(gbm)
 
 ```{r}
 # load the datasets
-train <- read.csv("train.csv", stringsAsFactors=FALSE)
-test <- read.csv("test.csv", stringsAsFactors=FALSE)
+train <- read.csv("train.csv")
+test <- read.csv("test.csv")
 summary(train)
 str(train)
 ```
@@ -188,6 +188,39 @@ levels(combined$KitchenQual) <- c(levels(combined$KitchenQual),"None")
 levels(combined$Functional) <- c(levels(combined$Functional),"None")
 levels(combined$SaleType) <- c(levels(combined$SaleType),"None")
 ```
+
+
+```{r}
+Column_classes <- sapply(names(combined),function(x){class(combined[[x]])})
+numeric_columns <-names(Column_classes[Column_classes != "factor"])
+#determining skew of each numric variable
+skew <- sapply(numeric_columns,function(x){skewness(combined[[x]],na.rm = T)})
+# Let us determine a threshold skewness and transform all variables above the treshold.
+skew <- skew[skew > 0.75]
+
+# transform excessively skewed features with log(x + 1)
+for(x in names(skew)) {
+  combined[[x]] <- log(combined[[x]] + 1)
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
