@@ -225,6 +225,53 @@ str(train_new)
 ```
 
 
+```{r}
+ggplot(train_new,aes(y=GrLivArea,x=as.factor(YrSold))) + 
+  geom_boxplot() 
+```
+
+
+```{r}
+
+#ggplot(train_new,aes(SalePrice))+geom_histogram()
+
+ggplot(train_new, aes(SalePrice)) + 
+  geom_histogram(bins = 35, 
+                 col="red", 
+                 fill="green", 
+                 alpha = 1.0) + 
+  labs(title="Histogram for SalePrice") +
+  labs(x="SalePrice", y="Count") + 
+  xlim(c(10,13.5)) + 
+  ylim(c(0,170))
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
