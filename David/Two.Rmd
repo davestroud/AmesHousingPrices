@@ -220,6 +220,8 @@ validate <- train[-train_ind, ]
 train_new <- subset(train_new,select=-c(Id,isTrain))
 validate <- subset(validate,select=-c(Id,isTrain))
 nrow(train_new)
+nrow(validate)
+str(train_new)
 ```
 
 
